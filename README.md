@@ -41,18 +41,21 @@ If you need an older v2.0.0 beta, please get it [here](https://github.com/palera
 - A Linux or macOS computer
 	- AMD CPUs (not AMD Mobile) have an issue [with (likely) their USB controllers] that causes them to have a very low success rate with checkm8. It is not recommended that you use them with palera1n.
 		- If your device does not successfully jailbreak, try a computer with an Intel or other CPU
+		
+# ![IMG_0001](https://user-images.githubusercontent.com/119916323/227810806-0eba5dd9-7ec5-4170-8a16-ef37663b1034.PNG)
 
-# Need help?
 
-Make sure you provide full details on your device, such as:
-- iDevice
-- iOS Version
-- Passcode enabled?
-- Logs, if panicked then send latest `panic-full` log from your iDevice.
 
-Using `-V` and `-v` would help with debugging.
 
-Join the [Support Discord](https://dsc.gg/palera1n), and create a thread in [#support](https://discord.com/channels/1028398973452570725/1028730487700738130) or ask in [#general](https://discord.com/channels/1028398973452570725/1028398976640229380).
+
+
+
+
+
+
+
+
+
 
 # Credits
 <details><summary>palera1n-c Contributors and Credits</summary>
