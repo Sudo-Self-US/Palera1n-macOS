@@ -74,7 +74,6 @@ int build_checks(void) {
 	}
 	if (boyermoore_horspool_memmem(&checkra1n[0], checkra1n_len, (const unsigned char*)"[ra1npoc15-part] thanks to", strlen("[ra1npoc15-part] thanks to")) != NULL) {
 		host_flags |= palerain_option_checkrain_is_clone;
-		LOG(LOG_WARNING, "Do not distribute!");
 	}
 #endif
 #ifndef NO_KPF
@@ -94,7 +93,7 @@ int build_checks(void) {
 	return 0;
 }
 
-#ifdef DEV_BUILD
+#ifdef TUI
 bool tui_started = false;
 #endif
 
@@ -115,7 +114,7 @@ int palera1n(int argc, char *argv[]) {
 	if ((ret = optparse(argc, argv))) goto cleanup;
 	if (!checkrain_option_enabled(host_flags, host_option_device_info))
 	if (checkrain_option_enabled(host_flags, host_option_palerain_version)) goto normal_exit;
-#ifdef DEV_BUILD
+#ifdef TUI
 	if (checkrain_option_enabled(host_flags, host_option_tui)) {
 		ret = tui();
 		if (ret) goto cleanup;

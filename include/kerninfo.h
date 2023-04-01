@@ -60,6 +60,7 @@
 #define palerain_option_setup_rootful_forced (1 << 3) /* create fakefs over an existing one */
 #define palerain_option_setup_partial_root   (1 << 4) /* fakefs creating should be partial */
 #define palerain_option_checkrain_is_clone   (1 << 5) /* supplied checkra1n is checkra1n clone */
+#define palerain_option_rootless_livefs      (1 << 6) /* mount root livefs on rootless */
 
 #ifdef DEV_BUILD
 #define palerain_option_test1               (1 << 29)
@@ -69,7 +70,7 @@
 // palerain host options
 #define host_option_dfuhelper_only       (1 << 0) /* dfuhelper only */
 #define host_option_pongo_exit           (1 << 1) /* boot to clean pongo shell */
-#ifdef DEV_BUILD
+#ifdef TUI
 #define host_option_tui                  (1 << 2) /* use terminal user interface */
 #else
 #define host_option_res1                 (1 << 2) /* reserved */

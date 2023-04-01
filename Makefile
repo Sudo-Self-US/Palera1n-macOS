@@ -1,4 +1,4 @@
-NAME = Tumbleweed
+NAME = bakepale
 
 SRC = $(shell pwd)
 DEP = $(SRC)/dep_root
@@ -6,7 +6,7 @@ STRIP = strip
 CC ?= cc
 CFLAGS += -I$(DEP)/include -I$(SRC)/include -I$(SRC)
 CFLAGS += -Wall -Wextra -DPALERAIN_VERSION=\"2.0.0\" -Wall -Wextra -Wno-unused-parameter
-CFLAGS += -Wno-unused-variable -I$(SRC)/src -std=c99 -pedantic-errors -D_C99_SOURCE -D_POSIX_C_SOURCE=200112L -D_DARWIN_C_SOURCE
+CFLAGS += -Wno-unused-variable -I$(SRC)/src -std=c99 -pedantic-errors -D_C99_SOURCE -D_POSIX_C_SOURCE=200112L
 LIBS += $(DEP)/lib/libimobiledevice-1.0.a $(DEP)/lib/libirecovery-1.0.a $(DEP)/lib/libusbmuxd-2.0.a
 LIBS += $(DEP)/lib/libimobiledevice-glue-1.0.a $(DEP)/lib/libplist-2.0.a -pthread
 ifeq ($(TARGET_OS),)
@@ -25,11 +25,13 @@ LDFLAGS += -static -no-pie -Wl,--gc-sections
 endif
 LIBS += $(DEP)/lib/libmbedtls.a $(DEP)/lib/libmbedcrypto.a $(DEP)/lib/libmbedx509.a $(DEP)/lib/libreadline.a
 
-ifeq ($(DEV_BUILD),1)
+ifeq ($(TUI),1)
 LIBS += $(DEP)/lib/libnewt.a $(DEP)/lib/libpopt.a $(DEP)/lib/libslang.a
 ifeq ($(TARGET_OS),Linux)
 LIBS += $(DEP)/lib/libgpm.a
 endif
+endif
+ifeq ($(DEV_BUILD),1)
 CFLAGS += -O0 -g -DDEV_BUILD -fno-omit-frame-pointer
 ifeq ($(ASAN),1)
 BUILD_STYLE=ASAN
@@ -74,13 +76,13 @@ clean:
 	$(MAKE) -C docs clean
 
 download-deps:
-	$(MAKE) -C src checkra1n-macos checkra1n-linux-arm64 checkra1n-linux-armel checkra1n-linux-x86 checkra1n-linux-x86_64 checkra1n-kpf-pongo ramdisk.dmg binpack.dmg
+	$(MAKE) -C src checkra1n-macos checkra1n-linux-arm64 checkra1n-linux-armel checkra1n-linux-x86 checkra1n-linux-x86_64 checkra1n-kpf-pongo ramdisk.dmg binpack.dmg Pongo.bin
 
 docs:
 	$(MAKE) -C docs
 
 distclean: clean
-	rm -rf palera1n-* palera1n*.dSYM src/checkra1n-* src/checkra1n-kpf-pongo src/ramdisk.dmg src/binpack.dmg
+	rm -rf palera1n-* palera1n*.dSYM src/checkra1n-* src/checkra1n-kpf-pongo src/ramdisk.dmg src/binpack.dmg src/Pongo.bin
 
 .PHONY: all palera1n clean docs distclean
 

@@ -16,10 +16,13 @@
 
 checkrain_option_t host_flags = 0;
 checkrain_option_p host_flags_p = &host_flags;
+static bool force_use_verbose_boot = false;
 
 static struct option longopts[] = {
+#ifdef ROOTFUL
 	{"setup-partial-fakefs", no_argument, NULL, 'B'},
 	{"setup-fakefs", no_argument, NULL, 'c'},
+#endif
 	{"dfuhelper", no_argument, NULL, 'D'},
 	{"help", no_argument, NULL, 'h'},
 	{"pongo-shell", no_argument, NULL, 'p'},
@@ -27,7 +30,9 @@ static struct option longopts[] = {
 	{"debug-logging", no_argument, NULL, 'v'},
 	{"verbose-boot", no_argument, NULL, 'V'},
 	{"boot-args", required_argument, NULL, 'e'},
+#ifdef ROOTFUL
 	{"fakefs", no_argument, NULL, 'f'},
+#endif
 	{"rootless", no_argument, NULL, 'l'},
 	{"jbinit-log-to-file", no_argument, NULL, 'L'},
 	{"demote", no_argument, NULL, 'd'},
@@ -47,6 +52,8 @@ static struct option longopts[] = {
 #ifdef DEV_BUILD
 	{"test1", no_argument, NULL, '1'},
 	{"test2", no_argument, NULL, '2'},
+#endif
+#ifdef TUI
 	{"tui", no_argument, NULL, 't'},
 #endif
 	{NULL, 0, NULL, 0}
@@ -55,27 +62,37 @@ static struct option longopts[] = {
 static int usage(int e, char* prog_name)
 {
 	fprintf(stderr,
+	"Usage: %s [-"
+	"DEhpvVldsSLRnPI"
 #ifdef DEV_BUILD
-			"Usage: %s [-12cCdDEfhIlLnOpRsStvV]"
-#else
-			"Usage: %s [-cCdDEfhIlLnOpRsSvV]"
+			"12"
 #endif
-			" [-e boot arguments] [-k Pongo image] [-o overlay file] [-r ramdisk file] [-K KPF file] [-i checkra1n file]\n"
+#ifdef ROOTFUL
+			"cfB"
+#endif
+#ifdef TUI
+			"t"
+#endif
+			"] [-e boot arguments] [-k Pongo image] [-o overlay file] [-r ramdisk file] [-K KPF file] [-i checkra1n file]\n"
 			"Copyright (C) 2023, palera1n team, All Rights Reserved.\n\n"
-			"iOS/iPadOS 15.0-16.3.1 arm64 jailbreaking tool\n\n"
+			"iOS/iPadOS 15.0-16.4 arm64 jailbreaking tool\n\n"
 			"\t--version\t\t\t\tPrint version\n"
 			"\t--force-revert\t\t\t\tRemove jailbreak\n"
 #ifdef DEV_BUILD
 			"\t-1, --test1\t\t\t\tSet palerain_option_test1\n"
 			"\t-2, --test2\t\t\t\tSet palerain_option_test2\n"
 #endif
+#ifdef ROOTFUL
 			"\t-B, --setup-partial-fakefs\t\tSetup partial fakefs\n"
 			"\t-c, --setup-fakefs\t\t\tSetup fakefs\n"
+#endif
 			"\t-d, --demote\t\t\t\tDemote\n"
-			"\t-D, --dfuhelper\t\t\tExit after entering DFU\n"
+			"\t-D, --dfuhelper\t\t\t\tExit after entering DFU\n"
 			"\t-e, --boot-args <boot arguments>\tXNU boot arguments\n"
 			"\t-E, --enter-recovery\t\t\tEnter recovery mode\n"
+#ifdef ROOTFUL
 			"\t-f, --fakefs \t\t\t\tBoots fakefs\n"
+#endif
 			"\t-h, --help\t\t\t\tShow this help\n"
 			"\t-i, --override-checkra1n <file>\t\tOverride checkra1n\n"
 			"\t-k, --override-pongo <file>\t\tOverride Pongo image\n"
@@ -90,12 +107,12 @@ static int usage(int e, char* prog_name)
 			"\t-r, --override-ramdisk <file>\t\tOverride ramdisk\n"
 			"\t-R, --reboot-device\t\t\tReboot connected device in normal mode\n"
 			"\t-s, --safe-mode\t\t\t\tEnter safe mode\n"
-			"\t-S, --no-colors\t\t\tDisable colors on the command line\n"
+			"\t-S, --no-colors\t\t\t\tDisable colors on the command line\n"
 			"\t-v, --debug-logging\t\t\tEnable debug logging\n"
 			"\t\tThis option can be repeated for extra verbosity.\n"
 			"\t-V, --verbose-boot\t\t\tVerbose boot\n"
 
-#ifdef DEV_BUILD
+#ifdef TUI
 			"\t-t, --tui\t\t\t\tTerminal user interface\n"
 #endif
 		"\nEnvironmental variables:\n"
@@ -108,15 +125,18 @@ static int usage(int e, char* prog_name)
 int optparse(int argc, char* argv[]) {
 	int opt;
 	int index;
-	while ((opt = getopt_long(argc, argv, 
+	while ((opt = getopt_long(argc, argv,
+	"DEhpvVldsSLtRnPIe:o:r:K:k:i:"
 #ifdef DEV_BUILD
-	"12BcDEhpvVldsSLftRnPIe:o:r:K:k:i:", 
-#else
-	"BcDEhpvVldsSLfRnPIe:o:r:K:k:i:", 
+	"12"
 #endif
-	longopts, NULL)) != -1)
+#ifdef ROOTFUL
+	"fcB"
+#endif
+	,longopts, NULL)) != -1)
 	{
 		switch (opt) {
+#ifdef ROOTFUL
 		case 'B':
 			palerain_flags |= palerain_option_setup_partial_root;
 			palerain_flags |= palerain_option_setup_rootful;
@@ -126,6 +146,7 @@ int optparse(int argc, char* argv[]) {
 			palerain_flags |= palerain_option_setup_rootful;
 			kpf_flags |= checkrain_option_verbose_boot;
 			break;
+#endif
 		case 'p':
 			host_flags |= host_option_pongo_exit;
 			break;
@@ -143,6 +164,7 @@ int optparse(int argc, char* argv[]) {
 			break;
 		case 'V':
 			kpf_flags |= checkrain_option_verbose_boot;
+			force_use_verbose_boot = true;
 			break;
 		case 'e':
 			if (strstr(optarg, "rootdev=") != NULL) {
@@ -154,13 +176,17 @@ int optparse(int argc, char* argv[]) {
             }
 			snprintf(xargs_cmd, sizeof(xargs_cmd), "xargs %s", optarg);
 			break;
+#ifdef ROOTFUL
 		case 'f':
 			snprintf(rootfs_cmd, sizeof(rootfs_cmd), "rootfs %s", optarg);
 			snprintf(dtpatch_cmd, 0x20, "dtpatch %s", optarg);
 			palerain_flags |= palerain_option_rootful;
 			break;
+#endif
 		case 'l':
+#ifdef ROOTFUL
 			palerain_flags &= ~palerain_option_rootful;
+#endif
 			break;
 		case 'L':
 			palerain_flags |= palerain_option_jbinit_log_to_file;
@@ -213,7 +239,7 @@ int optparse(int argc, char* argv[]) {
 			} else if (!(st.st_mode & S_IXUSR) && !(st.st_mode & S_IXGRP) && !(st.st_mode & S_IXOTH)) {
 				LOG(LOG_FATAL, "%s is not executable", optarg);
 				return -1;
-			} else if (!(st.st_mode & S_IFREG)) {
+			} else if (!S_ISREG(st.st_mode)) {
 				LOG(LOG_FATAL, "%s is not a regular file", optarg);
 				return -1;
 			}
@@ -258,10 +284,12 @@ int optparse(int argc, char* argv[]) {
 		case 'S':
 			host_flags |= host_option_no_colors;
 			break;
-#ifdef DEV_BUILD
+#ifdef TUI
 		case 't':
 			host_flags |= host_option_tui;
 			break;
+#endif
+#ifdef DEV_BUILD
 		case '1':
 			palerain_flags |= palerain_option_test1;
 			break;
@@ -293,10 +321,15 @@ int optparse(int argc, char* argv[]) {
 #else
 			"USB backend: IOKit\n"
 #endif
+			"Build options: " BUILD_OPTIONS "\n"
 		);
 		return 0;
 	}
 
+	if ((strstr(xargs_cmd, "serial=") != NULL) && !force_use_verbose_boot && checkrain_option_enabled(palerain_flags, palerain_option_setup_rootful)) {
+		kpf_flags &= ~checkrain_option_verbose_boot;
+	}
+    
 	snprintf(checkrain_flags_cmd, 0x20, "checkra1n_flags 0x%x", checkrain_flags);
 	snprintf(palerain_flags_cmd, 0x20, "palera1n_flags 0x%x", palerain_flags);
 	snprintf(kpf_flags_cmd, 0x20, "kpf_flags 0x%x", kpf_flags);
@@ -364,8 +397,10 @@ int optparse(int argc, char* argv[]) {
 		}
 	}
 	if (verbose >= 2) setenv("LIBUSB_DEBUG", "1", 1);
+
 	if (verbose >= 3)
 	{
+		libusbmuxd_set_debug_level(verbose - 2);
 		irecv_set_debug_level(1);
 		setenv("LIBUSB_DEBUG", "2", 1);
 	}
