@@ -1,11 +1,11 @@
 # Download pale ra1n for your Hardware: https://cdn.nickchan.lol/palera1n/c-rewrite/releases/v2.0.0-beta.5/
-# Guide Here: https://ios.cfw.guide/installing-palera1n/#running-palera1n-1
-# on macOS Apple Silicon you will need a Lightning to USB-A otherwise problems arise entering DFU Mode
-# sudo chmod +x /usr/local/bin/palera1n
-# sudo chmod +x /usr/local/bin/palera1n
-# cd /usr/local/bin/palera1n
-# sudo bash palera1n.sh --tweaks 15.7.3 --semi-tethered
-# Launch palera1n .ipa "install"
+## Guide Here: https://ios.cfw.guide/installing-palera1n/#running-palera1n-1
+## on macOS Apple Silicon you will need a Lightning to USB-A otherwise problems arise entering DFU Mode
+### sudo chmod +x /usr/local/bin/palera1n
+### sudo chmod +x /usr/local/bin/palera1n
+### cd /usr/local/bin/palera1n
+### sudo bash palera1n.sh --tweaks 15.7.3 --semi-tethered
+### Launch palera1n .ipa "install"
 
 
 <picture>
@@ -27,30 +27,7 @@
 
 ## If you want a jailbreak, you should read the [guide](https://palera.in).
 
-### You can obtain v2.0.0 beta [here](https://github.com/palera1n/palera1n/releases).
-If you need an older v2.0.0 beta, please get it [here](https://github.com/palera1n/palera1n-c/releases/tag/v2.0.0-beta.4).
 
-# Warnings
-- This palera1n rewrite has noticeably different arguments compared to the shell version of palera1n.
-  - Highly recommended that you take a look at how to use palera1n-c [here](https://cdn.nickchan.lol/palera1n/c-rewrite/releases/v2.0.0-beta.1/palera1n.1.html).
-
-- This does **NOT** support tethered creation or booting. You must use the older [shell version of palera1n](https://github.com/palera1n/palera1n/tree/legacy) (clone with `-b legacy`).
-
-- We are **NOT** responsible for any data loss, or the result of a device being bricked. The user of this program accepts responsibility should something happen to their device. While nothing should happen, jailbreaking has risks in itself.
-  - If your device is stuck in recovery, please run futurerestore `--exit-recovery`, or use `irecovery -n`.
-
-- palera1n will never work in VirtualBox, VMware or any virtual machine that doesn't support PCI passthrough.
-
-# Requirements
-- A checkm8 vulnerable iOS device on iOS 15.x or 16.x (`A8` - `A11`)
-	-	If using rootful, you will need **5-10GB of space** for the fakefs. This means 16GB devices cannot use the full fakefs creation. However, you can change the arguments to `-Bf` to create a fakefs with bind mounts, so it uses a smaller size, at the expense having unwritable parts in rarely-written paths, and then boot it
-	- On `A11`, **you must disable your passcode while in the jailbroken state** (on iOS 16, you need to **reset your device** before proceeding with palera1n).
-
-- **USB-A** cables are recommended to use, USB-C may have issues with palera1n and getting into DFU mode.<details><summary>Technical explanation</summary>The BootROM will only enter DFU if it detects USB voltage, which boils down to checking whether a certain pin is asserted from the Tristar chip. The Tristar does this based on the cable's accessory ID, and apparently USB-A and USB-C cables have different accessory IDs, and the one of the USB-C cables makes the Tristar not assert the USB voltage pin.</details>
-
-- A Linux or macOS computer
-	- AMD CPUs (not AMD Mobile) have an issue [with (likely) their USB controllers] that causes them to have a very low success rate with checkm8. It is not recommended that you use them with palera1n.
-		- If your device does not successfully jailbreak, try a computer with an Intel or other CPU
 		
 # ![IMG_0001](https://user-images.githubusercontent.com/119916323/227810806-0eba5dd9-7ec5-4170-8a16-ef37663b1034.PNG)
 
