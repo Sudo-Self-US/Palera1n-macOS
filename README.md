@@ -1,7 +1,7 @@
-# Download the palera1n version to match your architecture https://cdn.nickchan.lol/palera1n/c-rewrite/releases/v2.0.0-beta.5/
+## Download the palera1n version to match your architecture https://cdn.nickchan.lol/palera1n/c-rewrite/releases/v2.0.0-beta.5/
 ## Guide Here https://ios.cfw.guide/installing-palera1n/#running-palera1n-1
 ## on macOS Apple Silicon you will need a Lightning to USB-A cable otherwise problems with entering DFU Mode
-## Move your download to /usr/local/bin/
+### Move your download to /usr/local/bin/
 ### git clone https://github.com/sudo-self/Palera1n-macOS.git && cd Palera1n-macOS
 ### sudo chmod +x /usr/local/bin/palera1n
 ### sudo chmod +x /usr/local/bin/palera1n
@@ -26,26 +26,8 @@
   <strong><a href="https://twitter.com/palera1n">Twitter</a></strong>
 </p>
 <div class="clear"></div>
-
-## If you want a jailbreak, you should read the [guide](https://palera.in).
-
-
 		
 # ![IMG_0001](https://user-images.githubusercontent.com/119916323/227810806-0eba5dd9-7ec5-4170-8a16-ef37663b1034.PNG)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Credits
 <details><summary>palera1n-c Contributors and Credits</summary>
 <p>
