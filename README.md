@@ -1,6 +1,7 @@
-# Download pale ra1n for your Hardware: https://cdn.nickchan.lol/palera1n/c-rewrite/releases/v2.0.0-beta.5/
-## Guide Here: https://ios.cfw.guide/installing-palera1n/#running-palera1n-1
-## on macOS Apple Silicon you will need a Lightning to USB-A otherwise problems arise entering DFU Mode
+# Download the palera1n version to match your architecture https://cdn.nickchan.lol/palera1n/c-rewrite/releases/v2.0.0-beta.5/
+## Guide Here https://ios.cfw.guide/installing-palera1n/#running-palera1n-1
+## on macOS Apple Silicon you will need a Lightning to USB-A cable otherwise problems with entering DFU Mode
+## Open Terminal  
 ### sudo chmod +x /usr/local/bin/palera1n
 ### sudo chmod +x /usr/local/bin/palera1n
 ### cd /usr/local/bin/palera1n
