@@ -1,3 +1,13 @@
+# Download pale ra1n for your Hardware: https://cdn.nickchan.lol/palera1n/c-rewrite/releases/v2.0.0-beta.5/
+# Guide Here: https://ios.cfw.guide/installing-palera1n/#running-palera1n-1
+# on macOS Apple Silicon you will need a Lightning to USB-A otherwise problems arise entering DFU Mode
+# sudo chmod +x /usr/local/bin/palera1n
+# sudo chmod +x /usr/local/bin/palera1n
+# cd /usr/local/bin/palera1n
+# sudo bash palera1n.sh --tweaks 15.7.3 --semi-tethered
+# Launch palera1n .ipa "install"
+
+
 <picture>
 	<source media="(prefers-color-scheme: light)" srcset="https://cdn.discordapp.com/attachments/1028398976640229380/1088049124441604136/IMG_0033.png">
 	<img align="left" height="120" src="https://cdn.discordapp.com/attachments/1017854329887129611/1073858292159352862/thing.png" alt="palera1n logo" style="float: left;"/>
