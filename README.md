@@ -6,7 +6,7 @@
 ### sudo chmod +x /usr/local/bin/palera1n
 ### sudo chmod +x /usr/local/bin/palera1n
 ### sudo bash palera1n.sh --tweaks 15.7.3 --semi-tethered
-### follow prompts for DFU Mode pressing Power + Volume down together then releasing power after 5 seconds while continuing to hold Volume Down
+### follow prompts for DFU Mode pressing Power + Volume down together then releasing power after 5 seconds while continuing to hold Volume Down. Should you connect in any other mode than normal you will need to list you iOS version in the syntax. 
 ### Launch palera1n .ipa "install"
 
 
